@@ -1,17 +1,11 @@
-#include <SDL.h>
-#include <iostream>
+#include "Header.h"
+#include "GameApp.h"
 
 int main(int argc, char ** argv)
 {
 
-
-	SDL_Init(SDL_INIT_VIDEO);
-
-	std::cout << "Hey";
-
-	// game code eventually goes here
-
-	SDL_Quit();
+	GameApp theApp;
+	return theApp.OnExecute();
 
 	return 0;
 }
