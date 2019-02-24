@@ -40,7 +40,6 @@ bool GameApp::OnInit() {
 	SDL_Surface* image = nullptr;
 	SDL_Renderer * renderer = nullptr;
 	SDL_Texture * texture = nullptr;
-	//SDL_Rect * rect_ptr = nullptr;
 
 	//if we are unable to initialize all values of the surface,
 	//exit with false
@@ -75,6 +74,26 @@ bool GameApp::OnInit() {
 	//Window_Display = SDL_LoadBMP("Untitled.jpg");
 
 	return true;
+}
+
+void GameApp::DisplayTiles(std::vector <std::vector <MapElement>> &map_key);
+	SDL_Surface* image = nullptr;
+	SDL_Renderer * renderer = nullptr;
+	SDL_Texture * texture = nullptr;
+
+	//create a rect object which stores the dimensions of a given tile
+	SDL_Rect tile_size = { 0, 0, 50, 50 };
+
+	SDL_Rect tile_size = { 0, 0, 50, 50 };
+	SDL_RenderCopy(renderer, texture, NULL, &tile_size);
+
+	//present superimposed image to screen
+	SDL_RenderPresent(renderer);
+
+	//cleanup image and renderer
+	SDL_FreeSurface(image);
+	SDL_DestroyRenderer(renderer);
+	delete &tile_size;
 }
 
 //determines events (such as key presses) and their associated changes (move left etc)
