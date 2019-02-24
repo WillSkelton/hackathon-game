@@ -7,8 +7,8 @@
 
 #define TILE_SIZE 16
 
-#define WWIDTH 640
-#define WHEIGHT 480
+#define WWIDTH 500
+#define WHEIGHT 500
 
 //if ((Surf_Display = SDL_SetVideoMode(WWIDTH, WHEIGHT, 32, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL) {
 //	return false;

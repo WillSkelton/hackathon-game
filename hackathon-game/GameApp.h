@@ -1,6 +1,7 @@
 #pragma once
-
+#include "Header.h"
 #include <SDL.h>
+#include <vector>
 
 class GameApp {
 public:
@@ -15,6 +16,8 @@ public:
 	//determines events (such as key presses) and their associated changes (move left etc)
 	void OnEvent(SDL_Event* Event);
 
+	//displays every tile when provided a given map
+	void DisplayTiles(std::vector <std::vector <MapElement>> &map_key);
 
 	void OnLoop();
 	void OnRender();
@@ -28,3 +31,4 @@ private:
 	SDL_Window* Window_Display;
 	
 };
+
