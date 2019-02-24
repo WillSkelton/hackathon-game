@@ -22,6 +22,8 @@ public:
 
 	void DisplayTiles(SDL_Renderer * renderer, Map &map);
 
+	void GameApp::RenderPlayerLocation(SDL_Renderer * renderer, Map &map);
+
 	void OnLoop();
 	void OnRender();
 	void OnCleanup();

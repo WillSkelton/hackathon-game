@@ -76,7 +76,7 @@ bool GameApp::OnInit() {
 
 	SDL_RenderPresent(renderer);
 
-	// *****************************************************
+	//create an instance of map
 	Map myMap;
 
 	DisplayTiles(renderer, myMap);
@@ -84,6 +84,14 @@ bool GameApp::OnInit() {
 	return true;
 }
 
+/*
+function: void GameApp::DisplayTiles(SDL_Renderer * renderer, Map &map);
+descritpion: creates a texture for each image (repeated in a loop 100x)
+	it calls SDL_RenderCopy() each time to copy these to the renderer to make the final frame,
+	it then calls SDL_RenderPresent() once at the end to update the frame with the compilation image
+	stored in the renderer
+parameters:
+*/
 void GameApp::DisplayTiles(SDL_Renderer * renderer, Map &map){
 	SDL_Surface* image = nullptr;
 	//SDL_Renderer * renderer = nullptr;
@@ -105,7 +113,6 @@ void GameApp::DisplayTiles(SDL_Renderer * renderer, Map &map){
 		for (int col = 0; col < 10; ++col) {
 
 			//create a surface with the image
-			
 			switch(map.grid[row][col].identifier) {
 			case 'g':
 				//grass
@@ -134,13 +141,7 @@ void GameApp::DisplayTiles(SDL_Renderer * renderer, Map &map){
 			default:
 				image = SDL_LoadBMP("grass-with-puddle.bmp");
 				break;
-
 			}
-			
-
-			//image = SDL_LoadBMP("grass.bmp");	//load the current image
-
-
 
 			texture = SDL_CreateTextureFromSurface(renderer, image);
 
@@ -154,13 +155,28 @@ void GameApp::DisplayTiles(SDL_Renderer * renderer, Map &map){
 		tile_size.x = 0;
 	}
 
+	//superimpose player over map screen
+	RenderPlayerLocation(renderer, map);
+
 	//present superimposed image to screen
 	SDL_RenderPresent(renderer);
 
 	//cleanup image and renderer
-	//SDL_FreeSurface(image);
-	//SDL_DestroyRenderer(renderer);
-	//delete &tile_size;
+	SDL_FreeSurface(image);
+	SDL_DestroyRenderer(renderer);
+}
+
+void GameApp::RenderPlayerLocation(SDL_Renderer * renderer, Map &map) {
+	SDL_Surface* player_image = SDL_LoadBMP("Untitled.bmp");
+
+	SDL_Rect tile_location = { (map.player.coordinates[0])*50, (map.player.coordinates[1]) * 50, 50, 50 };
+
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, player_image);
+
+	SDL_RenderCopy(renderer, texture, NULL, &tile_location);
+
+	//cleanup
+	SDL_FreeSurface(player_image);
 }
 
 //determines events (such as key presses) and their associated changes (move left etc)
