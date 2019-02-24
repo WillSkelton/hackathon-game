@@ -2,10 +2,15 @@
 
 
 Player::Player() : Sprite() {
-	this->hasAxe = false;
+	/*this->hasAxe = false;
 	this->hasPick = false;
 	this->hasMachete = false;
-	this->hasPlank = false;
+	this->hasPlank = false;*/
+
+	this->hasAxe = true;
+	this->hasPick = true;
+	this->hasMachete = true;
+	this->hasPlank = true;
 }
 
 Player::Player(bool axe, bool pick, bool machete, bool plank) : Sprite() {

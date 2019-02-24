@@ -15,7 +15,6 @@ public:
 	bool OnInit();
 
 	//determines events (such as key presses) and their associated changes (move left etc)
-	void OnEvent(SDL_Event* Event);
 	void OnEvent(SDL_Event* Event, Map * map);
 
 	//displays every tile when provided a given map
@@ -25,7 +24,9 @@ public:
 	void GameApp::RenderPlayerLocation(SDL_Renderer * renderer, Map &map);
 
 	void OnLoop();
-	void OnRender();
+
+	//renders game images every frame
+	void OnRender(Map &myMap);
 	void OnCleanup();
 
 private:

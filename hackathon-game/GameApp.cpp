@@ -11,6 +11,11 @@ GameApp::GameApp() {
 
 //events queue up actions that the user inputs, and are processed in a loop
 int GameApp::OnExecute() {
+
+	//create an instance of map
+	Map myMap;
+	int i = 0;
+
 	//if initializing our game fails, return -1 and close
 	if (OnInit() == false) {	
 		return -1;
@@ -24,11 +29,17 @@ int GameApp::OnExecute() {
 		//SDL_PollEvent pulls items from the queue until queue empty
 		while (SDL_PollEvent(&Event)) {
 			//OnEvent takes a given event item and processes it
-			OnEvent(&Event);
+			OnEvent(&Event, &myMap);
+			if (Event.type == SDL_KEYDOWN || i == 0)
+			{
+				++i;
+				OnRender(myMap);
+			}
 		}
 
 		OnLoop();
-		OnRender();
+		
+
 	}
 
 	OnCleanup();
@@ -56,30 +67,27 @@ bool GameApp::OnInit() {
 		return false;
 	}
 
-	renderer = SDL_CreateRenderer(Window_Display, -1, 0);
+	//renderer = SDL_CreateRenderer(Window_Display, -1, 0);
 
-	//clear the screen to black
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderClear(renderer);
-	SDL_RenderPresent(renderer);
+	////clear the screen to black
+	//SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	//SDL_RenderClear(renderer);
+	//SDL_RenderPresent(renderer);
 
-	//create a surface with the image
-	image = SDL_LoadBMP("grass.bmp");	//load the current image
+	////create a surface with the image
+	//image = SDL_LoadBMP("grass.bmp");	//load the current image
 
-	texture = SDL_CreateTextureFromSurface(renderer, image);
-	SDL_Rect tile_size = { 0, 0, 50, 50 };
+	//texture = SDL_CreateTextureFromSurface(renderer, image);
+	//SDL_Rect tile_size = { 0, 0, 50, 50 };
 
-	SDL_RenderCopy(renderer, texture, NULL, &tile_size);
-	tile_size.x = 50;
-	tile_size.y = 50;
-	SDL_RenderCopy(renderer, texture, NULL, &tile_size);
+	//SDL_RenderCopy(renderer, texture, NULL, &tile_size);
+	//tile_size.x = 50;
+	//tile_size.y = 50;
+	//SDL_RenderCopy(renderer, texture, NULL, &tile_size);
 
-	SDL_RenderPresent(renderer);
+	//SDL_RenderPresent(renderer);
 
-	//create an instance of map
-	Map myMap;
-
-	DisplayTiles(renderer, myMap);
+	//DisplayTiles(renderer, myMap);
 
 	return true;
 }
@@ -179,28 +187,38 @@ void GameApp::RenderPlayerLocation(SDL_Renderer * renderer, Map &map) {
 	SDL_FreeSurface(player_image);
 }
 
-//determines events (such as key presses) and their associated changes (move left etc)
-void GameApp::OnEvent(SDL_Event* Event) {
-
-	//allow ourselves to exit the panel by clicking on the exit button in the top corner
-	//Evenets are broken into types, some are button presses, some are clicks, SDL_QUIT is the exit button
-	if (Event->type == SDL_QUIT) {
-		Running = false;
-	}
-
-	/*
-	if (Event->type == button_press) {
-		//process button press
-	}
-	*/
-}
 
 void GameApp::OnLoop() {
 
 }
 
-void GameApp::OnRender() {
+void GameApp::OnRender(Map &myMap) {
+	SDL_Surface* image = nullptr;
+	SDL_Renderer * renderer = nullptr;
+	SDL_Texture * texture = nullptr;
 
+
+	renderer = SDL_CreateRenderer(Window_Display, -1, 0);
+
+	//clear the screen to black
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderClear(renderer);
+	SDL_RenderPresent(renderer);
+
+	//create a surface with the image
+	image = SDL_LoadBMP("grass.bmp");	//load the current image
+
+	texture = SDL_CreateTextureFromSurface(renderer, image);
+	SDL_Rect tile_size = { 0, 0, 50, 50 };
+
+	SDL_RenderCopy(renderer, texture, NULL, &tile_size);
+	tile_size.x = 50;
+	tile_size.y = 50;
+	SDL_RenderCopy(renderer, texture, NULL, &tile_size);
+
+	SDL_RenderPresent(renderer);
+
+	DisplayTiles(renderer, myMap);
 }
 
 
