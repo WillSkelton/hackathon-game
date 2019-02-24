@@ -77,29 +77,9 @@ bool GameApp::OnInit() {
 	SDL_RenderPresent(renderer);
 
 	// *****************************************************
-	//blitz the surface onto the texture,
+	Map myMap;
 
-	//presetn tht erendered item
-
-
-	////add textures to the map
-	//image = SDL_LoadBMP("grass.bmp");	//load the current image
-	//renderer = SDL_CreateRenderer(Window_Display, -1, 0);	//create a renderer to the display
-	//texture = SDL_CreateTextureFromSurface(renderer, image);	//render the image onto the display
-
-	////create a rect object which stores the dimensions of a given tile
-	//SDL_Rect tile_size = { 0, 0, 50, 50 };
-	//SDL_RenderCopy(renderer, texture, NULL, &tile_size);
-	//
-	////present superimposed image to screen
-	//SDL_RenderPresent(renderer);
-
-	////cleanup image and renderer
-	//SDL_FreeSurface(image);
-	//SDL_DestroyRenderer(renderer);
-
-	////Window_Display = SDL_LoadBMP("Untitled.jpg");
-	DisplayTiles(renderer);
+	DisplayTiles(renderer, myMap);
 
 	return true;
 }
@@ -121,24 +101,42 @@ void GameApp::DisplayTiles(SDL_Renderer * renderer, Map &map){
 	//texture = SDL_CreateTextureFromSurface(renderer, image);
 
 	//print every tile
-	for (int x = 0; x < 10; ++x) {
-		for (int y = 0; y < 10; ++y) {
+	for (int row = 0; row < 10; ++row) {
+		for (int col = 0; col < 10; ++col) {
 
 			//create a surface with the image
-
-			switch(map->grid) {
-			case '':
-
+			
+			switch(map.grid[row][col].identifier) {
+			case 'g':
+				//grass
+				image = SDL_LoadBMP("grass.bmp");
 				break;
-			case'':
-
+			case'd':
+				//dirt
+				image = SDL_LoadBMP("dirt.bmp");
 				break;
-			case:
-
+			case'b':
+				//bush
+				image = SDL_LoadBMP("shrub.bmp");
+				break;
+			case't':
+				//tree
+				image = SDL_LoadBMP("tree.bmp");
+				break;
+			case'r':
+				//rock
+				image = SDL_LoadBMP("Untitled.bmp");
+				break;
+			case'w':
+				//puddle
+				image = SDL_LoadBMP("grass-with-puddle.bmp");
 				break;
 			default:
+				image = SDL_LoadBMP("grass-with-puddle.bmp");
+				break;
 
 			}
+			
 
 			//image = SDL_LoadBMP("grass.bmp");	//load the current image
 
@@ -160,9 +158,9 @@ void GameApp::DisplayTiles(SDL_Renderer * renderer, Map &map){
 	SDL_RenderPresent(renderer);
 
 	//cleanup image and renderer
-	SDL_FreeSurface(image);
-	SDL_DestroyRenderer(renderer);
-	delete &tile_size;
+	//SDL_FreeSurface(image);
+	//SDL_DestroyRenderer(renderer);
+	//delete &tile_size;
 }
 
 //determines events (such as key presses) and their associated changes (move left etc)
