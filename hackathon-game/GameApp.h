@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Header.h"
 #include <SDL.h>
 
 class GameApp {
@@ -14,7 +14,6 @@ public:
 
 	//determines events (such as key presses) and their associated changes (move left etc)
 	void OnEvent(SDL_Event* Event);
-
 
 	void OnLoop();
 	void OnRender();
