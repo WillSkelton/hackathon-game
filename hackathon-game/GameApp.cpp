@@ -125,7 +125,7 @@ void GameApp::DisplayTiles(SDL_Renderer * renderer, Map &map){
 				break;
 			case'r':
 				//rock
-				image = SDL_LoadBMP("Untitled.bmp");
+				image = SDL_LoadBMP("rock.bmp");
 				break;
 			case'w':
 				//puddle
