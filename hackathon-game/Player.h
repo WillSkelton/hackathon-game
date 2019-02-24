@@ -25,9 +25,6 @@ public:
 	
 	bool analizeNextCell(MapElement *adjacentCell);
 
-	bool move(char direction);
-
-
 	// Items
 	bool hasAxe;
 	bool hasPick;
