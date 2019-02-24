@@ -8,7 +8,7 @@ void GameApp::OnEvent(SDL_Event* Event, Map * map) {
 	if (Event->type == SDL_QUIT) {
 		Running = false;
 	}
-	if(Event->type == SDL_KEYUP) //a key has been pressed down
+	if(Event->type == SDL_KEYDOWN) //a key has been pressed down
 	{
 		const Uint8 *state = SDL_GetKeyboardState(NULL); //gets what key has been pressed down
 		if(state[SDL_SCANCODE_W])//if the w key was pressed (up)
