@@ -73,9 +73,29 @@ bool Player::throwPlank(MapElement *adjacentCell) {
 }
 
 bool Player::analizeNextCell(MapElement *adjacentCell) {
+	bool success = false;
 	switch (adjacentCell->identifier) {
-	case 'b':
+	case 'f':
+		success = true;
 		break;
+
+	case 'b':
+		success = sliceGrass(adjacentCell);
+		break;
+
+	case 't':
+		success = chopTree(adjacentCell);
+		break;
+
+	case 'r':
+		success = breakRock(adjacentCell);
+		break;
+
+	case 'w':
+		success = throwPlank(adjacentCell);
+	
+	default:
+		success = false;
 	}
 
 	return false;
