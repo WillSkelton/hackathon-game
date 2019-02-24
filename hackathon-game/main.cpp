@@ -26,6 +26,8 @@ int main(int argc, char ** argv) {
 		}
 	}
 
+	
+
 	GameApp theApp;
 	//theApp.DisplayTiles(map);
 	return theApp.OnExecute();
