@@ -1,6 +1,6 @@
 #include "MapElement.h"
 
-MapElement::MapElement() {
+MapElement::MapElement() : Sprite() {
 	
 	this->identifier = ' ';
 
@@ -12,7 +12,7 @@ MapElement::MapElement() {
 
 }
 
-MapElement::MapElement(int x, int y, char indentifier) {
+MapElement::MapElement(int x, int y, char indentifier) : Sprite() {
 	this->identifier = ' ';
 
 	this->canPass = false;

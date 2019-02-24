@@ -1,17 +1,17 @@
-#include <SDL.h>
-#include <iostream>
+#include "Header.h"
+#include "GameApp.h"
+#include "Map.h"
+#include "Player.h"
 
-int main(int argc, char ** argv)
-{
+int main(int argc, char ** argv) {
 
+	srand(time(0));
+	
 
-	SDL_Init(SDL_INIT_VIDEO);
+	
 
-	std::cout << "Hey";
-
-	// game code eventually goes here
-
-	SDL_Quit();
+	GameApp theApp;
+	return theApp.OnExecute();
 
 	return 0;
 }
