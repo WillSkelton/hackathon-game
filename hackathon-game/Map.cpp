@@ -22,7 +22,6 @@ Map::Map() {
 			this->grid[row][col].identifier = obsticles[randomObsticle];
 			
 			// PLEASE DELETE THIS!!!
-
 			this->grid[row][col].canPass = true;
 
 			if ((this->grid[row][col].identifier == 'd') || (this->grid[row][col].identifier == 'g')) {
@@ -160,7 +159,7 @@ bool Map::move(char direction) {
 			// if it's impassable...
 			if (adjacentObsticle.canPass == false) {
 				// check if you can break it
-				if (player.analizeNextCell(&adjacentObsticle) == true) {
+				if ((player.analizeNextCell(&adjacentObsticle) == true) && (this->player.coordinates[1] < 10)) {
 					// move the player
 					this->player.coordinates[1] += 1;
 
@@ -174,11 +173,13 @@ bool Map::move(char direction) {
 			}
 			// it is passible
 			else {
-				// move the player
-				this->player.coordinates[1] += 1;
+				if ((this->player.coordinates[0] < 10)) {
+					// move the player
+					this->player.coordinates[1] += 1;
 
-				// report success
-				success = true;
+					// report success
+					success = true;
+				}
 			}
 		}
 		else {
@@ -197,7 +198,7 @@ bool Map::move(char direction) {
 			// if it's impassable...
 			if (adjacentObsticle.canPass == false) {
 				// check if you can break it
-				if (player.analizeNextCell(&adjacentObsticle) == true) {
+				if ((player.analizeNextCell(&adjacentObsticle)) == true && (this->player.coordinates[0] < 10)) {
 					// move the player
 					this->player.coordinates[0] += 1;
 
@@ -211,11 +212,14 @@ bool Map::move(char direction) {
 			}
 			// it is passible
 			else {
-				// move the player
-				this->player.coordinates[0] += 1;
 
-				// report success
-				success = true;
+				if ((this->player.coordinates[0] < 10)) {
+					// move the player
+					this->player.coordinates[0] += 1;
+
+					// report success
+					success = true;
+				}
 			}
 		}
 		else {
