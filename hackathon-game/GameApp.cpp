@@ -175,7 +175,7 @@ void GameApp::DisplayTiles(SDL_Renderer * renderer, Map &map){
 }
 
 void GameApp::RenderPlayerLocation(SDL_Renderer * renderer, Map &map) {
-	SDL_Surface* player_image = SDL_LoadBMP("Untitled.bmp");
+	SDL_Surface* player_image = SDL_LoadBMP("player.bmp");
 
 	SDL_Rect tile_location = { (map.player.coordinates[0])*50, (map.player.coordinates[1]) * 50, 50, 50 };
 
