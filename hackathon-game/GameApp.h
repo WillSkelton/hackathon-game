@@ -27,6 +27,7 @@ public:
 
 	//renders game images every frame
 	void OnRender(Map &myMap);
+
 	void OnCleanup();
 
 private:

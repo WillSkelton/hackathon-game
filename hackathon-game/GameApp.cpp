@@ -203,9 +203,9 @@ void GameApp::OnRender(Map &myMap) {
 	renderer = SDL_CreateRenderer(Window_Display, -1, 0);
 
 	//clear the screen to black
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderClear(renderer);
-	SDL_RenderPresent(renderer);
+	//SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	//SDL_RenderClear(renderer);
+	//SDL_RenderPresent(renderer);
 
 	//create a surface with the image
 	image = SDL_LoadBMP("grass.bmp");	//load the current image
