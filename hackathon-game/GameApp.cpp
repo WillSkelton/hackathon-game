@@ -6,6 +6,7 @@ GameApp::GameApp() {
 	Running = true;
 
 	Window_Display = nullptr;
+	Surface_Display = nullptr;
 }
 
 //events queue up actions that the user inputs, and are processed in a loop
@@ -55,37 +56,105 @@ bool GameApp::OnInit() {
 		return false;
 	}
 
-	//add textures to the map
-	image = SDL_LoadBMP("Untitled.bmp");	//load the current image
-	renderer = SDL_CreateRenderer(Window_Display, -1, 0);	//create a renderer to the display
-	texture = SDL_CreateTextureFromSurface(renderer, image);	//render the image onto the display
+	renderer = SDL_CreateRenderer(Window_Display, -1, 0);
 
-	//create a rect object which stores the dimensions of a given tile
-	SDL_Rect tile_size = { 0, 0, 50, 50 };
-	SDL_RenderCopy(renderer, texture, NULL, &tile_size);
-	
-	//present superimposed image to screen
+	//clear the screen to black
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderClear(renderer);
 	SDL_RenderPresent(renderer);
 
-	//cleanup image and renderer
-	SDL_FreeSurface(image);
-	SDL_DestroyRenderer(renderer);
+	//create a surface with the image
+	image = SDL_LoadBMP("grass.bmp");	//load the current image
 
-	//Window_Display = SDL_LoadBMP("Untitled.jpg");
+	texture = SDL_CreateTextureFromSurface(renderer, image);
+	SDL_Rect tile_size = { 0, 0, 50, 50 };
+
+	SDL_RenderCopy(renderer, texture, NULL, &tile_size);
+	tile_size.x = 50;
+	tile_size.y = 50;
+	SDL_RenderCopy(renderer, texture, NULL, &tile_size);
+
+	SDL_RenderPresent(renderer);
+
+	// *****************************************************
+	//blitz the surface onto the texture,
+
+	//presetn tht erendered item
+
+
+	////add textures to the map
+	//image = SDL_LoadBMP("grass.bmp");	//load the current image
+	//renderer = SDL_CreateRenderer(Window_Display, -1, 0);	//create a renderer to the display
+	//texture = SDL_CreateTextureFromSurface(renderer, image);	//render the image onto the display
+
+	////create a rect object which stores the dimensions of a given tile
+	//SDL_Rect tile_size = { 0, 0, 50, 50 };
+	//SDL_RenderCopy(renderer, texture, NULL, &tile_size);
+	//
+	////present superimposed image to screen
+	//SDL_RenderPresent(renderer);
+
+	////cleanup image and renderer
+	//SDL_FreeSurface(image);
+	//SDL_DestroyRenderer(renderer);
+
+	////Window_Display = SDL_LoadBMP("Untitled.jpg");
+	DisplayTiles(renderer);
 
 	return true;
 }
 
-void GameApp::DisplayTiles(std::vector <std::vector <MapElement>> &map_key);
+void GameApp::DisplayTiles(SDL_Renderer * renderer, Map &map){
 	SDL_Surface* image = nullptr;
-	SDL_Renderer * renderer = nullptr;
+	//SDL_Renderer * renderer = nullptr;
 	SDL_Texture * texture = nullptr;
 
 	//create a rect object which stores the dimensions of a given tile
 	SDL_Rect tile_size = { 0, 0, 50, 50 };
 
-	SDL_Rect tile_size = { 0, 0, 50, 50 };
-	SDL_RenderCopy(renderer, texture, NULL, &tile_size);
+	//clear the screen to black
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderClear(renderer);
+	SDL_RenderPresent(renderer);
+
+	//image = SDL_LoadBMP("grass.bmp");	//load the current image
+	//texture = SDL_CreateTextureFromSurface(renderer, image);
+
+	//print every tile
+	for (int x = 0; x < 10; ++x) {
+		for (int y = 0; y < 10; ++y) {
+
+			//create a surface with the image
+
+			switch(map->grid) {
+			case '':
+
+				break;
+			case'':
+
+				break;
+			case:
+
+				break;
+			default:
+
+			}
+
+			//image = SDL_LoadBMP("grass.bmp");	//load the current image
+
+
+
+			texture = SDL_CreateTextureFromSurface(renderer, image);
+
+			//copy each element to the renderer
+			SDL_RenderCopy(renderer, texture, NULL, &tile_size);
+
+			tile_size.x += 50;
+
+		}
+		tile_size.y += 50;
+		tile_size.x = 0;
+	}
 
 	//present superimposed image to screen
 	SDL_RenderPresent(renderer);
