@@ -15,9 +15,10 @@ public:
 
 	//determines events (such as key presses) and their associated changes (move left etc)
 	void OnEvent(SDL_Event* Event);
+	void GameApp::OnEvent(SDL_Event* Event, Map * map);
 
 	//displays every tile when provided a given map
-	void DisplayTiles(std::vector <std::vector <MapElement>> &map_key);
+	void DisplayTiles();
 
 	void OnLoop();
 	void OnRender();
