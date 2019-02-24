@@ -23,6 +23,7 @@ int GameApp::OnExecute() {
 
 	//create an event for use for storing other events for processing
 	SDL_Event Event;
+	Event.type = SDL_KEYDOWN;
 
 	//we then loop through all inputs in the event queue
 	while (Running) {
@@ -31,6 +32,7 @@ int GameApp::OnExecute() {
 			//OnEvent takes a given event item and processes it
 			OnEvent(&Event, &myMap);
 			if (Event.type == SDL_KEYDOWN || i == 0)
+			//if(true)
 			{
 				++i;
 				OnRender(myMap);

@@ -20,6 +20,14 @@ Map::Map() {
 			// place random block
 			randomObsticle = rand() % 7;
 			this->grid[row][col].identifier = obsticles[randomObsticle];
+			
+			// PLEASE DELETE THIS!!!
+
+			this->grid[row][col].canPass = true;
+
+			if ((this->grid[row][col].identifier == 'd') || (this->grid[row][col].identifier == 'g')) {
+				this->grid[row][col].canPass = true;
+			}
 		}
 	}
 
@@ -70,6 +78,12 @@ bool Map::move(char direction) {
 				if (player.analizeNextCell(&adjacentObsticle) == true) {
 					// move the player
 					this->player.coordinates[1] -= 1;
+
+
+					this->grid[playerRow][playerCol].identifier = this->grid[playerRow - 1][playerCol].identifier;
+
+					this->grid[playerRow - 1][playerCol].identifier = 'p';
+
 					
 					// report success
 					success = true;
@@ -82,6 +96,11 @@ bool Map::move(char direction) {
 			// it is passible
 			else {
 				// move the player
+
+				this->grid[playerRow][playerCol].identifier = this->grid[playerRow - 1][playerCol].identifier;
+
+				this->grid[playerRow - 1][playerCol].identifier = 'p';
+
 				this->player.coordinates[1] -= 1;
 
 				// report success
