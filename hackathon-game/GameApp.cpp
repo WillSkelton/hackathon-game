@@ -23,6 +23,7 @@ int GameApp::OnExecute() {
 
 	//create an event for use for storing other events for processing
 	SDL_Event Event;
+	Event.type = SDL_KEYDOWN;
 
 	//we then loop through all inputs in the event queue
 	while (Running) {
@@ -31,6 +32,7 @@ int GameApp::OnExecute() {
 			//OnEvent takes a given event item and processes it
 			OnEvent(&Event, &myMap);
 			if (Event.type == SDL_KEYDOWN || i == 0)
+			//if(true)
 			{
 				++i;
 				OnRender(myMap);
@@ -201,9 +203,9 @@ void GameApp::OnRender(Map &myMap) {
 	renderer = SDL_CreateRenderer(Window_Display, -1, 0);
 
 	//clear the screen to black
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderClear(renderer);
-	SDL_RenderPresent(renderer);
+	//SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	//SDL_RenderClear(renderer);
+	//SDL_RenderPresent(renderer);
 
 	//create a surface with the image
 	image = SDL_LoadBMP("grass.bmp");	//load the current image
