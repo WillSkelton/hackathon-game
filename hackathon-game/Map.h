@@ -1,7 +1,9 @@
 #pragma once
 #include "MapElement.h"
+#include "Player.h"
 #include <time.h>
 #include <math.h>
+
 
 class Map {
 public:
@@ -16,12 +18,18 @@ public:
 	// Fill Map
 	void fillMap(Map *map);
 
+
+	bool move(char direction);
+
 	// Map
-	vector<vector<MapElement>> grid[10][10];
+	MapElement grid[10][10];
 
 	// Start and Finish Indices
 	int startIndex[2];
 	int endIndex[2];
+
+	// Player
+	Player player;
 
 
 };

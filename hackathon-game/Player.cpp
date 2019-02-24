@@ -1,14 +1,14 @@
 #include "Player.h"
 
 
-Player::Player() {
+Player::Player() : Sprite() {
 	this->hasAxe = false;
 	this->hasPick = false;
 	this->hasMachete = false;
 	this->hasPlank = false;
 }
 
-Player::Player(bool axe, bool pick, bool machete, bool plank) {
+Player::Player(bool axe, bool pick, bool machete, bool plank) : Sprite() {
 
 	this->hasAxe = axe;
 	this->hasPick = pick;
@@ -81,34 +81,3 @@ bool Player::analizeNextCell(MapElement *adjacentCell) {
 	return false;
 }
 
-bool Player::move(char direction) {
-	
-	bool success = false;
-
-	switch (direction) {
-	case 'w':
-
-
-		break;
-
-	case 'a':
-		break;
-
-	case 's':
-		break;
-	
-
-	case 'd':
-		break;
-
-	case 'e':
-		break;
-
-	default:
-		success = false;
-		break;
-	}
-	
-	
-	return false;
-}
