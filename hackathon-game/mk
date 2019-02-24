@@ -1,4 +1,4 @@
 rm a.out
-g++ -m32 GameApp.cpp main.cpp Map.cpp MapElement.cpp Player.cpp Sprite.cpp `sdl2-config --cflags --libs`
+g++ GameApp.cpp main.cpp Map.cpp MapElement.cpp Player.cpp Sprite.cpp `sdl2-config --cflags --libs` -w
 ls -l a.out
 a.out
