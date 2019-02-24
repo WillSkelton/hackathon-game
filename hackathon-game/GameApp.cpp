@@ -104,19 +104,10 @@ parameters:
 */
 void GameApp::DisplayTiles(SDL_Renderer * renderer, Map &map){
 	SDL_Surface* image = nullptr;
-	//SDL_Renderer * renderer = nullptr;
 	SDL_Texture * texture = nullptr;
 
 	//create a rect object which stores the dimensions of a given tile
 	SDL_Rect tile_size = { 0, 0, 50, 50 };
-
-	//clear the screen to black
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderClear(renderer);
-	SDL_RenderPresent(renderer);
-
-	//image = SDL_LoadBMP("grass.bmp");	//load the current image
-	//texture = SDL_CreateTextureFromSurface(renderer, image);
 
 	//print every tile
 	for (int row = 0; row < 10; ++row) {
@@ -158,6 +149,9 @@ void GameApp::DisplayTiles(SDL_Renderer * renderer, Map &map){
 			//copy each element to the renderer
 			SDL_RenderCopy(renderer, texture, NULL, &tile_size);
 
+			//cleanup image resources
+			SDL_FreeSurface(image);
+
 			tile_size.x += 50;
 
 		}
@@ -172,7 +166,7 @@ void GameApp::DisplayTiles(SDL_Renderer * renderer, Map &map){
 	SDL_RenderPresent(renderer);
 
 	//cleanup image and renderer
-	SDL_FreeSurface(image);
+	//SDL_FreeSurface(image);
 	SDL_DestroyRenderer(renderer);
 }
 
@@ -195,30 +189,12 @@ void GameApp::OnLoop() {
 }
 
 void GameApp::OnRender(Map &myMap) {
-	SDL_Surface* image = nullptr;
+	//SDL_Surface* image = nullptr;
 	SDL_Renderer * renderer = nullptr;
-	SDL_Texture * texture = nullptr;
+	//SDL_Texture * texture = nullptr;
 
 
 	renderer = SDL_CreateRenderer(Window_Display, -1, 0);
-
-	//clear the screen to black
-	//SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	//SDL_RenderClear(renderer);
-	//SDL_RenderPresent(renderer);
-
-	//create a surface with the image
-	image = SDL_LoadBMP("grass.bmp");	//load the current image
-
-	texture = SDL_CreateTextureFromSurface(renderer, image);
-	SDL_Rect tile_size = { 0, 0, 50, 50 };
-
-	SDL_RenderCopy(renderer, texture, NULL, &tile_size);
-	tile_size.x = 50;
-	tile_size.y = 50;
-	SDL_RenderCopy(renderer, texture, NULL, &tile_size);
-
-	SDL_RenderPresent(renderer);
 
 	DisplayTiles(renderer, myMap);
 }
@@ -227,7 +203,7 @@ void GameApp::OnRender(Map &myMap) {
 void GameApp::OnCleanup() {
 	/*SDL_DestroyTexture(texture);
 	SDL_FreeSurface(image);
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);*/
+	SDL_DestroyRenderer(renderer);*/
+	SDL_DestroyWindow(Window_Display);
 	SDL_Quit();
 }
