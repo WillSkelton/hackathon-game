@@ -12,19 +12,19 @@ void GameApp::OnEvent(SDL_Event* Event, Map * map) {
 	if(Event->type == SDL_KEYDOWN) //a key has been pressed down
 	{
 		const Uint8 *state = SDL_GetKeyboardState(NULL); //gets what key has been pressed down
-		if(state[SDL_SCANCODE_W])//if the w key was pressed (up)
+		if(state[SDLK_w])//if the w key was pressed (up)
 		{
             map->move('w');
 		}
-		else if(state[SDL_SCANCODE_A])//if the a key was pressed (left)
+		else if(state[SDLK_a])//if the a key was pressed (left)
 		{
             map->move('a');
 		}
-		else if(state[SDL_SCANCODE_S])//if the s key was pressed (down)
+		else if(state[SDLK_s])//if the s key was pressed (down)
 		{
             map->move('s');
 		}
-		else if(state[SDL_SCANCODE_D])//if the d key was pressed (right)
+		else if(state[SDLK_d])//if the d key was pressed (right)
 		{
             map->move('d');
 		}
