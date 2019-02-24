@@ -72,6 +72,43 @@ bool Player::throwPlank(MapElement *adjacentCell) {
 	return success;
 }
 
-bool Player::move(char direction) {
+bool Player::analizeNextCell(MapElement *adjacentCell) {
+	switch (adjacentCell->identifier) {
+	case 'b':
+		break;
+	}
 
+	return false;
+}
+
+bool Player::move(char direction) {
+	
+	bool success = false;
+
+	switch (direction) {
+	case 'w':
+
+
+		break;
+
+	case 'a':
+		break;
+
+	case 's':
+		break;
+	
+
+	case 'd':
+		break;
+
+	case 'e':
+		break;
+
+	default:
+		success = false;
+		break;
+	}
+	
+	
+	return false;
 }
