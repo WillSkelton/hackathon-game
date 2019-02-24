@@ -1,5 +1,6 @@
 #pragma once
 #include "Header.h"
+#include "Map.h"
 #include <SDL.h>
 #include <vector>
 
@@ -17,7 +18,7 @@ public:
 	void OnEvent(SDL_Event* Event);
 
 	//displays every tile when provided a given map
-	void DisplayTiles(std::vector <std::vector <MapElement>> &map_key);
+	void DisplayTiles(SDL_Renderer * renderer, Map &map);
 
 	void OnLoop();
 	void OnRender();
@@ -29,6 +30,8 @@ private:
 
 	//display which is used for screen (think of this as the canvas)
 	SDL_Window* Window_Display;
+
+	SDL_Surface* Surface_Display;
 	
 };
 
