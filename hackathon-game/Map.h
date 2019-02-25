@@ -18,7 +18,7 @@ public:
 	// Fill Map
 	void fillMap(Map *map);
 
-
+	//moves the player if the next tile can be moved from
 	bool move(char direction);
 
 	// Map
@@ -30,6 +30,4 @@ public:
 
 	// Player
 	Player player;
-
-
 };

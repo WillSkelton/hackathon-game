@@ -1,6 +1,6 @@
 #include "Player.h"
 
-
+//default constructor, for now we hav that they have all of the items
 Player::Player() : Sprite() {
 	/*this->hasAxe = false;
 	this->hasPick = false;
@@ -13,6 +13,7 @@ Player::Player() : Sprite() {
 	this->hasPlank = true;
 }
 
+//constructor that sets the parementers to the items
 Player::Player(bool axe, bool pick, bool machete, bool plank) : Sprite() {
 
 	this->hasAxe = axe;
@@ -22,16 +23,19 @@ Player::Player(bool axe, bool pick, bool machete, bool plank) : Sprite() {
 
 }
 
+//player destructor, does not really do anything
 Player::~Player() {
 
 }
 
+//sets the position of the player
 void Player::setPosition(int x, int y) {
 	this->coordinates[0] = x;
 	this->coordinates[1] = y;
 
 }
 
+//changes the tree map element canpass to true instead of false
 bool Player::chopTree(MapElement *adjacentCell) {
 
 	bool success = false;
@@ -44,6 +48,7 @@ bool Player::chopTree(MapElement *adjacentCell) {
 	return success;
 }
 
+//changes the rock map element canpass to true instead of false
 bool Player::breakRock(MapElement *adjacentCell) {
 	bool success = false;
 
@@ -55,6 +60,7 @@ bool Player::breakRock(MapElement *adjacentCell) {
 	return success;
 }
 
+//changes the grass map element canpass to true instead of false
 bool Player::sliceGrass(MapElement *adjacentCell) {
 	bool success = false;
 
@@ -66,6 +72,7 @@ bool Player::sliceGrass(MapElement *adjacentCell) {
 	return success;
 }
 
+//changes the rock map element canpass to true instead of false
 bool Player::throwPlank(MapElement *adjacentCell) {
 	bool success = false;
 
@@ -77,32 +84,38 @@ bool Player::throwPlank(MapElement *adjacentCell) {
 	return success;
 }
 
+//looks at the next cell
 bool Player::analizeNextCell(MapElement *adjacentCell) {
 	bool success = false;
 	switch (adjacentCell->identifier) {
-	case 'f':
+		//finish tile
+	case FINISH:
 		success = true;
 		break;
-
-	case 'b':
+		//grass tile
+	case GRASS:
 		success = sliceGrass(adjacentCell);
 		break;
-
-	case 't':
+		//tree tile
+	case TREE:
 		success = chopTree(adjacentCell);
 		break;
-
-	case 'r':
+		//rock tile
+	case ROCK:
 		success = breakRock(adjacentCell);
 		break;
-
-	case 'w':
+		//water tile
+	case PUDDLE:
 		success = throwPlank(adjacentCell);
-	
+		break;
+		//dirt tile
+	case DIRT:
+		success = true;
+		break;
+		//defaults to can't do anything
 	default:
 		success = false;
 	}
-
 	return false;
 }
 

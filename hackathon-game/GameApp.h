@@ -21,9 +21,7 @@ public:
 
 	void DisplayTiles(SDL_Renderer * renderer, Map &map);
 
-	void GameApp::RenderPlayerLocation(SDL_Renderer * renderer, Map &map);
-
-	void OnLoop();
+	void RenderPlayerLocation(SDL_Renderer * renderer, Map &map);
 
 	//renders game images every frame
 	void OnRender(Map &myMap);
@@ -37,6 +35,7 @@ private:
 	//display which is used for screen (think of this as the canvas)
 	SDL_Window* Window_Display;
 
+	//
 	SDL_Surface* Surface_Display;
 	
 };

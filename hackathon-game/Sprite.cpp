@@ -9,7 +9,7 @@ Sprite::Sprite() {
 
 }
 
-Sprite::Sprite(int x, int y, char identifier) {
+Sprite::Sprite(int x, int y, Identifier identifier) {
 	this->identifier = identifier;	
 
 	this->coordinates[0] = x;

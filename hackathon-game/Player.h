@@ -23,6 +23,7 @@ public:
 	bool sliceGrass(MapElement *adjacentCell);
 	bool throwPlank(MapElement *adjacentCell);
 	
+	//looks at the next cell and checks if you can break that obsticle
 	bool analizeNextCell(MapElement *adjacentCell);
 
 	// Items
