@@ -36,7 +36,7 @@ private:
 	SDL_Window* Window_Display;
 
 	//
-	SDL_Surface* Surface_Display;
-	
+
+	//SDL_Renderer * renderer;
 };
 

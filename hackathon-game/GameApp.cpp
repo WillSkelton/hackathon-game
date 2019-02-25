@@ -6,7 +6,6 @@ GameApp::GameApp() {
 	Running = true;
 
 	Window_Display = nullptr;
-	Surface_Display = nullptr;
 }
 
 //events queue up actions that the user inputs, and are processed in a loop
@@ -65,28 +64,6 @@ bool GameApp::OnInit() {
 		return false;
 	}
 
-	//this is moved to the render functiond
-	//renderer = SDL_CreateRenderer(Window_Display, -1, 0);
-
-	////clear the screen to black
-	//SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	//SDL_RenderClear(renderer);
-	//SDL_RenderPresent(renderer);
-
-	////create a surface with the image
-	//image = SDL_LoadBMP("grass.bmp");	//load the current image
-
-	//texture = SDL_CreateTextureFromSurface(renderer, image);
-	//SDL_Rect tile_size = { 0, 0, 50, 50 };
-
-	//SDL_RenderCopy(renderer, texture, NULL, &tile_size);
-	//tile_size.x = 50;
-	//tile_size.y = 50;
-	//SDL_RenderCopy(renderer, texture, NULL, &tile_size);
-
-	//SDL_RenderPresent(renderer);
-
-	//DisplayTiles(renderer, myMap);
 
 	return true;
 }
@@ -114,27 +91,27 @@ void GameApp::DisplayTiles(SDL_Renderer * renderer, Map &map){
 			switch(map.grid[row][col].identifier) {
 			case GRASS:
 				//grass
-				image = SDL_LoadBMP("grass.bmp");
+				image = SDL_LoadBMP("assets\\bmp\\grass.bmp");
 				break;
 			case DIRT:
 				//dirt
-				image = SDL_LoadBMP("dirt.bmp");
+				image = SDL_LoadBMP("assets\\bmp\\dirt.bmp");
 				break;
 			case SHRUB:
 				//bush
-				image = SDL_LoadBMP("shrub.bmp");
+				image = SDL_LoadBMP("assets\\bmp\\shrub.bmp");
 				break;
 			case TREE:
 				//tree
-				image = SDL_LoadBMP("tree.bmp");
+				image = SDL_LoadBMP("assets\\bmp\\tree.bmp");
 				break;
 			case ROCK:
 				//rock
-				image = SDL_LoadBMP("rock.bmp");
+				image = SDL_LoadBMP("assets\\bmp\\rock.bmp");
 				break;
 			default:
 				//default is puddle
-				image = SDL_LoadBMP("grass-with-puddle.bmp");
+				image = SDL_LoadBMP("assets\\bmp\\Untitled.bmp");
 				break;
 			}
 
@@ -170,7 +147,7 @@ void GameApp::DisplayTiles(SDL_Renderer * renderer, Map &map){
 
 void GameApp::RenderPlayerLocation(SDL_Renderer * renderer, Map &map) {
 	//loads in the image we have for the player
-	SDL_Surface* player_image = SDL_LoadBMP("player.bmp");
+	SDL_Surface* player_image = SDL_LoadBMP("assets\\bmp\\player.bmp");
 	
 	//sets the location of the tile for the player
 	SDL_Rect tile_location = { (map.player.coordinates[0])*50, (map.player.coordinates[1]) * 50, 50, 50 };

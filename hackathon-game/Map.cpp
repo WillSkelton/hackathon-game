@@ -22,7 +22,7 @@ Map::Map() {
 			this->grid[row][col].identifier = obsticles[randomObsticle];
 			
 			// sets all of the tiles to unpassable
-			this->grid[row][col].canPass = false;
+			this->grid[row][col].canPass = true;
 
 			//if the tile is grass or dirt it will be passable
 			if ((this->grid[row][col].identifier == DIRT) || (this->grid[row][col].identifier == GRASS)) {
