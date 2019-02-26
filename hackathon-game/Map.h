@@ -15,11 +15,30 @@ public:
 	// DTOR
 	~Map();
 	
-	// Fill Map
-	void fillMap(Map *map);
+	//functions
+
+	//setters
+	bool setstartindex(int x, int y);
+	bool setendindex(int x, int y);
+	bool setplayercoordinates(int x, int y);
+	bool settileidentifier(int x, int y, Identifier identity);
+
+
+	//getters
+	int getstartcoordinatesx(void);
+	int getstartcoordinatesy(void);
+	int getendcoordinatesx(void);
+	int getendcoordinatesy(void);
+	int getplayercoodinatesx(void);
+	int getplayercoodinatesy(void);
+	Identifier gettileidentity(int x, int y);
 
 	//moves the player if the next tile can be moved from
 	bool move(char direction);
+
+private:
+
+	//private variables
 
 	// Map
 	MapElement grid[10][10];
@@ -30,4 +49,12 @@ public:
 
 	// Player
 	Player player;
+
+
+	//private functions
+
+	// Fill Map
+	void fillMap();
+
+
 };

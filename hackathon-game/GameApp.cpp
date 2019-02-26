@@ -88,30 +88,30 @@ void GameApp::DisplayTiles(SDL_Renderer * renderer, Map &map){
 		for (int col = 0; col < 10; ++col) {
 
 			//create a surface with the image
-			switch(map.grid[row][col].identifier) {
+			switch(map.gettileidentity(col, row)) {
 			case GRASS:
 				//grass
-				image = SDL_LoadBMP("assets\\bmp\\grass.bmp");
+				image = SDL_LoadBMP("./assets/bmp/grass.bmp");
 				break;
 			case DIRT:
 				//dirt
-				image = SDL_LoadBMP("assets\\bmp\\dirt.bmp");
+				image = SDL_LoadBMP("./assets/bmp/dirt.bmp");
 				break;
 			case SHRUB:
 				//bush
-				image = SDL_LoadBMP("assets\\bmp\\shrub.bmp");
+				image = SDL_LoadBMP("./assets/bmp/shrub.bmp");
 				break;
 			case TREE:
 				//tree
-				image = SDL_LoadBMP("assets\\bmp\\tree.bmp");
+				image = SDL_LoadBMP("./assets/bmp/tree.bmp");
 				break;
 			case ROCK:
 				//rock
-				image = SDL_LoadBMP("assets\\bmp\\rock.bmp");
+				image = SDL_LoadBMP("./assets/bmp/rock.bmp");
 				break;
 			default:
 				//default is puddle
-				image = SDL_LoadBMP("assets\\bmp\\Untitled.bmp");
+				image = SDL_LoadBMP("./assets/bmp/Untitled.bmp");
 				break;
 			}
 
@@ -147,10 +147,10 @@ void GameApp::DisplayTiles(SDL_Renderer * renderer, Map &map){
 
 void GameApp::RenderPlayerLocation(SDL_Renderer * renderer, Map &map) {
 	//loads in the image we have for the player
-	SDL_Surface* player_image = SDL_LoadBMP("assets\\bmp\\player.bmp");
+	SDL_Surface* player_image = SDL_LoadBMP("./assets/bmp/player.bmp");
 	
 	//sets the location of the tile for the player
-	SDL_Rect tile_location = { (map.player.coordinates[0])*50, (map.player.coordinates[1]) * 50, 50, 50 };
+	SDL_Rect tile_location = { (map.getplayercoodinatesx())*50, (map.getplayercoodinatesy()) * 50, 50, 50 };
 
 	//greates a texture from the player image and coordinates
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, player_image);

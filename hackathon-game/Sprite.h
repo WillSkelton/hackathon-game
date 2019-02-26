@@ -1,5 +1,6 @@
 #pragma once
 #include "Header.h"
+#include "Coordinates.h"
 #include <string>
 #include <iostream>
 #include <vector>
@@ -14,7 +15,7 @@ public:
 	// CTOR
 	Sprite();
 
-	Sprite(int x, int y, Identifier identifier);
+	Sprite(int x, int y, Identifier identity);
 	
 	// CPY CTOR
 	Sprite(Sprite &src);
@@ -26,13 +27,18 @@ public:
 	int getX(void);
 	int getY(void);
 
-	char getIdentifier(void);
+	Identifier getIdentifier(void);
 
+	//setters
+	void setX(int x);
+	void setY(int y);
 
-//private:
+	void setidentity(Identifier identity);
+
+private:
 	//what block is on the tile 
 	Identifier identifier;
 
 	//where the block is
-	int coordinates[2];
+	Coordinates location;
 };

@@ -3,17 +3,13 @@
 // CTOR
 Sprite::Sprite() {
 	this->identifier = identifier;
-
-	this->coordinates[0] = 0;
-	this->coordinates[1] = 0;
-
 }
 
-Sprite::Sprite(int x, int y, Identifier identifier) {
+Sprite::Sprite(int x, int y, Identifier identity) {
 	this->identifier = identifier;	
 
-	this->coordinates[0] = x;
-	this->coordinates[1] = y;
+	this->location.setx(x);
+	this->location.sety(y);
 
 }
 
@@ -21,9 +17,8 @@ Sprite::Sprite(int x, int y, Identifier identifier) {
 Sprite::Sprite(Sprite &src) {
 	this->identifier = src.identifier;
 
-	this->coordinates[0] = src.coordinates[0];
-	this->coordinates[1] = src.coordinates[1];
-
+	this->location.setx(src.getX());
+	this->location.sety(src.getY());
 
 }
 
@@ -35,13 +30,28 @@ Sprite::~Sprite(){
 
 // Getters
 int Sprite::getY(void){
-	return this->coordinates[1];
+	return this->location.gety();;
 }
 
 int Sprite::getX(void){
-	return this->coordinates[0];
+	return this->location.gety();
 }
 
-char Sprite::getIdentifier(void){
+Identifier Sprite::getIdentifier(void){
 	return this->identifier;
+}
+
+//setters
+void Sprite::setX(int x)
+{
+	this->location.setx(x);
+}
+void Sprite::setY(int y)
+{
+	this->location.sety(y);
+	
+}
+void Sprite::setidentity(Identifier identity)
+{
+	this->identifier = identity;
 }

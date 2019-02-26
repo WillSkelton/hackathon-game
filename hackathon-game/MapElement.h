@@ -30,23 +30,33 @@ public:
 	*												   *
 	\**************************************************/
 
-	//default constructor
-	MapElement();
+	//constructs the mapelement with some basic values, envokes the Sprite constructor for the parts of map
+	//element that is not in its constructor
+	MapElement() : Sprite(){
+		//this->canPass = false;
+	};
 
+	/*
 	//nondefault constructor 
-	MapElement(int x, int y, char indentifier);
+	//envokes the Sprite constructor inside it
+	MapElement(int x, int y, Identifier indentity, bool canpass) : Sprite(x, y, indentity){
+		this->canPass = canpass;
+	};
 
 	//changes the coordiantes of the element
 	void changeCoordinates(int x, int y);
 
 	//changes the element pass to true instead of false
 	void brakeElement(void);
+
+	void setcanpass(bool canpass);
 	
+	bool getcanpass(bool canpass);
+	*/
 
-
-//private:
+private:
 
 	//whether or not you can pass the object
-	bool canPass;
+	//bool canPass;
 
 };

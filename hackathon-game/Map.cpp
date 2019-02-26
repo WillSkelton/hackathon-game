@@ -2,7 +2,6 @@
 
 // CTORs
 Map::Map() {
-
 	// Randomly generate start and end index
 	int startIndex[2] = { (rand() % 10), (rand() % 10) };
 	int endIndex[2] = { (rand() % 10), (rand() % 10) };
@@ -10,38 +9,14 @@ Map::Map() {
 	int randomObsticle = 0;
 	Identifier obsticles[6] = { SHRUB, TREE, ROCK, PUDDLE, GRASS, DIRT };
 
-	
-	// iterate through rows
-	for (int row = 0; row < 10; ++row) {
-
-		// iterate through columns
-		for (int col = 0; col < 10; ++col) {
-
-			// place random block
-			randomObsticle = rand() % 7;
-			this->grid[row][col].identifier = obsticles[randomObsticle];
-			
-			// sets all of the tiles to unpassable
-			this->grid[row][col].canPass = true;
-
-			//if the tile is grass or dirt it will be passable
-			if ((this->grid[row][col].identifier == DIRT) || (this->grid[row][col].identifier == GRASS)) {
-				this->grid[row][col].canPass = true;
-			}
-		}
-	}
-
+	this->fillMap();
 
 	// place start marker
-	this->grid[startIndex[1]][startIndex[0]].identifier = START;
-	this->grid[endIndex[1]][endIndex[0]].identifier = FINISH;
+	this->settileidentifier(startIndex[1], startIndex[0], START);
+	this->settileidentifier(endIndex[1], endIndex[0], FINISH);
 
 	// place player
-	this->player.coordinates[0] = startIndex[0];
-	this->player.coordinates[1] = startIndex[1];
-
-	// mark player location
-	this->grid[player.coordinates[1]][player.coordinates[0]].identifier = PLAYER;
+	this->setplayercoordinates(startIndex[0], startIndex[1]);
 }
 
 
@@ -51,13 +26,42 @@ Map::~Map() {
 }
 
 // Fill Map
-void Map::fillMap(Map *map) {
+void Map::fillMap() {
+	int randomObsticle = 0;
+	Identifier obsticles[6] = { SHRUB, TREE, ROCK, PUDDLE, GRASS, DIRT };
+	// iterate through rows
+	for (int row = 0; row < 10; ++row) {
 
+		// iterate through columns
+		for (int col = 0; col < 10; ++col) {
+
+			// place random block
+			randomObsticle = rand() % 7;
+			this->settileidentifier(col, row, obsticles[randomObsticle]);
+			
+			// sets all of the tiles to unpassable
+			this->grid[row][col].setcanpass(true);
+
+			//if the tile is grass or dirt it will be passable
+			if ((this->gettileidentity(col, row) == DIRT) || (this->gettileidentity(col, row) == GRASS)) {
+				this->grid[row][col].setcanpass(true);
+			}
+		}
+	}
 }
 
 //attempts to move the player
 bool Map::move(char direction) {
-	int playerRow = this->player.coordinates[1];
+
+
+	
+
+
+
+
+
+
+	/*int playerRow = this->player.coordinates[1];
 	int playerCol = this->player.coordinates[0];
 
 	//creates a mapelement so we can look at the next obsticle
@@ -218,4 +222,76 @@ bool Map::move(char direction) {
 	}
 
 	return success;
+	*/
+}
+
+
+//setters
+bool Map::setstartindex(int x, int y)
+{
+	this->startIndex[0] = x;
+	this->startIndex[1] = y;
+	if(this->startIndex[0] == x && this->startIndex[1] == y)
+	{
+		return true;
+	}
+	return false;
+}
+bool Map::setendindex(int x, int y)
+{
+	this->endIndex[0] = x;
+	this->endIndex[1] = y;
+		if(this->endIndex[0] == y && this->endIndex[1] == x)
+	{
+		return true;
+	}
+	return false;
+}
+bool Map::setplayercoordinates(int x, int y)
+{
+	this->player.setPosition(x, y);
+	if(this->player.getX() == x && this->player.getY() == y)
+	{
+		return true;
+	}
+	return false;
+}
+bool Map::settileidentifier(int x, int y, Identifier identity)
+{
+	this->grid[y][x].setidentity(identity);
+	if(this->gettileidentity(x,y) == identity)
+	{
+		return true;
+	}
+	false;
+}
+
+//getters
+int Map::getstartcoordinatesx(void)
+{
+	return startIndex[0];
+}
+int Map::getstartcoordinatesy(void)
+{
+	return startIndex[1];
+}
+int Map::getendcoordinatesx(void)
+{
+	return endIndex[0];
+}
+int Map::getendcoordinatesy(void)
+{
+	return endIndex[0];
+}
+int Map::getplayercoodinatesx(void)
+{
+	return this->player.getX();
+}
+int Map::getplayercoodinatesy(void)
+{
+	return this->player.getY();
+}
+Identifier Map::gettileidentity(int x, int y)
+{
+	return this->grid[y][x].getIdentifier();
 }

@@ -1,4 +1,19 @@
 rm a.out
-g++ GameApp.cpp main.cpp Map.cpp MapElement.cpp Player.cpp Sprite.cpp inputs.cpp `sdl2-config --cflags --libs` -w
+code GameApp.cpp
+code GameApp.h
+code Header.h
+code inputs.cpp
+code main.cpp
+code Map.cpp
+code MapElement.cpp
+code MapElement.h
+code Map.h
+code Player.cpp
+code Player.h
+code Sprite.cpp
+code Sprite.h
+code Coordniates.cpp
+code Coordinates.h
+g++ GameApp.cpp main.cpp Map.cpp MapElement.cpp Player.cpp Sprite.cpp inputs.cpp Coordniates.cpp `sdl2-config --cflags --libs` -w
 ls -l a.out
 a.out
