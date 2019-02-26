@@ -14,8 +14,8 @@ FullGame::FullGame() {
 	error_log.open("error_log.txt");
 
 	//initialize SDL
-	if (!(SDL_Init(SDL_INIT_VIDEO) < 0)) {
-		error_log << "SDL_image could not initialize!" << std::endl;;
+	if ((SDL_Init(SDL_INIT_VIDEO) < 0)) {
+		error_log << "SDL_image could not properly initialize in constructor!" << std::endl;
 	}
 
 }
@@ -49,9 +49,8 @@ void FullGame::play_game() {
 	//control game flow -- keep playing until exited out
 	while (running) {
 
-		//blit_window_test();
 		//update the screen here******
-		render_and_display();
+		render_and_display(myMap);
 
 		//SDL_PollEvent takes the most recent event (button press) and stores it to the event variable
 		while (SDL_PollEvent(&event) != 0) {
@@ -85,7 +84,7 @@ void FullGame::close() {
 	//destroy texture object
 	SDL_DestroyTexture(temp_texture);
 
-	//deestroy renderer object
+	//destroy renderer object
 	SDL_DestroyRenderer(renderer);
 
 	//Destroy window
@@ -99,22 +98,79 @@ void FullGame::close() {
 
 }
 
-void FullGame::render_and_display() {
+void FullGame::render_and_display(Map &myMap) {
+	SDL_Rect dest_rect = {0, 0, DISPLAY_TILE_SIZE, DISPLAY_TILE_SIZE };
+	SDL_Rect source_rect = { SOURCE_TILE_SIZE , SOURCE_TILE_SIZE , SOURCE_TILE_SIZE , SOURCE_TILE_SIZE };
 
 	//clear the screen to black
 	SDL_RenderClear(renderer);
 
-	//repeat with however many tiles you want to load in specified locations
+	//repeat until every image on the map has been applied to the renderer
+	for (int x = 0; x < WWIDTH / DISPLAY_TILE_SIZE; ++x) {
+		for (int y = 0; y < WHEIGHT / DISPLAY_TILE_SIZE; ++y) {
+
+			//determine which texture to apply via switch statement and adjust source_rect accordingly
+			determine_source_tile(x, y, myMap, source_rect);
+
+			//apply the current texture to the renderer
+			apply_texture_to_renderer(dest_rect, source_rect, "assets\\tile_map\\Tilemap\\tilemap_packed.png");
+
+			dest_rect.x += DISPLAY_TILE_SIZE;
+
+		}
+		dest_rect.y += DISPLAY_TILE_SIZE;
+		dest_rect.x = 0;
+	}
 
 
-	apply_texture_to_renderer("assets\\tile_map\\Tiles\\tile_0006.png");
 
-	//display rendered image
+	//render player image transparently over map
+
+	//update screen with rendered image
 	SDL_RenderPresent(renderer);
 }
 
+//determine which texture to apply via switch statement and adjust source_rect accordingly
+void FullGame::determine_source_tile(int x, int y, Map &myMap, SDL_Rect &source_rect) {
+	int row = 0, col = 0;
+
+	//row and column updated to which row and column that tile is found on the tilemap.jpg
+	//remember!! index for counting rows/cols starts at 0
+	switch (myMap.grid[x][y].identifier) {
+	case GRASS:	
+		row = 1;
+		col = 1;
+		break;
+	case DIRT:
+		row = 4;
+		col = 1;
+		break;
+	case SHRUB:
+		row = 10;
+		col = 22;
+		break;
+	case TREE:
+		row = 9;
+		col = 22;
+		break;
+	case ROCK:
+		row = 10;
+		col = 3;
+		break;
+	default:	
+		//default to basic grass tile
+		row = 1;
+		col = 1;
+	}
+
+	//update source rectangle location based on specified row/column location 
+	//(source_rect needs pixel location, so row * tile size = pixel location)
+	source_rect.y = row * SOURCE_TILE_SIZE;
+	source_rect.x = col * SOURCE_TILE_SIZE;
+}
+
 //creates a texture from a provided surface + applies that texture to the renderer, frees up the surface/texture
-void FullGame::apply_texture_to_renderer(const std::string path) {
+void FullGame::apply_texture_to_renderer(SDL_Rect &dest_rect, SDL_Rect &source_rect, const std::string path) {
 
 	//generate a surface from the image
 	temp_surface = load_surface(path.c_str());
@@ -126,7 +182,7 @@ void FullGame::apply_texture_to_renderer(const std::string path) {
 	SDL_FreeSurface(temp_surface);
 
 	//apply texture to renderer
-	SDL_RenderCopy(renderer, temp_texture, NULL, NULL);
+	SDL_RenderCopy(renderer, temp_texture, &source_rect, &dest_rect);
 
 	//destroy the texture now that we are done with it
 	SDL_DestroyTexture(temp_texture);
@@ -158,10 +214,10 @@ void FullGame::blit_window_test() {
 
 
 	//blit the temp surface to the master surface
-	SDL_Rect tile_size = { TILE_SIZE, TILE_SIZE, TILE_SIZE, TILE_SIZE };
+	SDL_Rect tile_size = { DISPLAY_TILE_SIZE, DISPLAY_TILE_SIZE, DISPLAY_TILE_SIZE, DISPLAY_TILE_SIZE };
 	SDL_BlitSurface(temp_surface, NULL, master_surface, &tile_size);
-	tile_size.x -= TILE_SIZE;
-	tile_size.y -= TILE_SIZE;
+	tile_size.x -= DISPLAY_TILE_SIZE;
+	tile_size.y -= DISPLAY_TILE_SIZE;
 	SDL_BlitSurface(temp_surface, NULL, master_surface, &tile_size);
 
 	//display master surface

@@ -31,13 +31,16 @@ public:
 	bool create_renderer();
 
 	//creates a texture from a provided surface + applies that texture to the renderer, frees up the surface/texture
-	void apply_texture_to_renderer(const std::string path);
+	void apply_texture_to_renderer(SDL_Rect &dest_rect, SDL_Rect &source_rect, const std::string path);
 
-	//takes the renderer, applies it to the screen
-	void FullGame::render_and_display();
+	//takes the renderer, applies it to the screen (this function updates screen with image generated from map parameter)
+	void render_and_display(Map &myMap);
+
+	//determine which texture to apply via switch statement and adjust source_rect accordingly
+	void determine_source_tile(int x, int y, Map &map, SDL_Rect &source_rect);
 
 	//initializes PNG loading -- allows us to use more than just .bmp images
-	void FullGame::init_png_loading();
+	void init_png_loading();
 
 	//processes any given event
 	void process_event(SDL_Event* Event, Map * map);
