@@ -6,6 +6,13 @@ GameApp::GameApp() {
 	Running = true;
 
 	Window_Display = nullptr;
+
+	SDL_Renderer * renderer = nullptr;
+
+	//surfaces for individual image and master image for frame
+	temp_surface = nullptr;
+	//map_surface = nullptr;
+	master_surface = nullptr;
 }
 
 //events queue up actions that the user inputs, and are processed in a loop
@@ -64,9 +71,38 @@ bool GameApp::OnInit() {
 		return false;
 	}
 
+	//map_surface will now point to the display_window,
+	//anything changed on map_surface will appear in the display window
+	master_surface = SDL_GetWindowSurface(Window_Display);
 
 	return true;
 }
+
+void GameApp::load_images(Map *map) {
+	SDL_Rect tile_size = { 0, 0, 50, 50 };
+
+	//load image to temp_surface
+	temp_surface = SDL_LoadBMP("assets\\bmp\\grass.bmp");
+
+	/*
+
+	adjust tile_size.x + 50
+	adjust tile_size.y + 50
+	
+	*/
+
+	//blit image to master_surface
+	SDL_BlitSurface(temp_surface, NULL, master_surface, &tile_size);
+
+	//repeat previous 2 steps 100 times for each tile required
+
+
+	//present window to screen
+	//SDL_UpdateWindowSurface(master_surface);
+
+	//where to put player blitted to screen?
+}
+
 
 /*
 function: void GameApp::DisplayTiles(SDL_Renderer * renderer, Map &map);
@@ -76,7 +112,7 @@ descritpion: creates a texture for each image (repeated in a loop 100x)
 	stored in the renderer
 parameters:
 */
-void GameApp::DisplayTiles(SDL_Renderer * renderer, Map &map){
+void GameApp::DisplayTiles(Map &map){
 	SDL_Surface* image = nullptr;
 	SDL_Texture * texture = nullptr;
 
@@ -126,7 +162,6 @@ void GameApp::DisplayTiles(SDL_Renderer * renderer, Map &map){
 
 			//moving the x coordinate forward 50 pixels
 			tile_size.x += 50;
-
 		}
 
 		//at the end of the row, reset the x value and and moves the y down one
@@ -135,17 +170,16 @@ void GameApp::DisplayTiles(SDL_Renderer * renderer, Map &map){
 	}
 
 	//superimpose player over map screen
-	RenderPlayerLocation(renderer, map);
+	RenderPlayerLocation(map);
 
 	//present superimposed image to screen
 	SDL_RenderPresent(renderer);
 
 	//cleanup image and renderer
-	//SDL_FreeSurface(image);
 	SDL_DestroyRenderer(renderer);
 }
 
-void GameApp::RenderPlayerLocation(SDL_Renderer * renderer, Map &map) {
+void GameApp::RenderPlayerLocation(Map &map) {
 	//loads in the image we have for the player
 	SDL_Surface* player_image = SDL_LoadBMP("assets\\bmp\\player.bmp");
 	
@@ -163,15 +197,13 @@ void GameApp::RenderPlayerLocation(SDL_Renderer * renderer, Map &map) {
 }
 
 void GameApp::OnRender(Map &myMap) {
-	//SDL_Surface* image = nullptr;
-	SDL_Renderer * renderer = nullptr;
-	//SDL_Texture * texture = nullptr;
+	//SDL_Renderer * renderer = nullptr;
 
 	//creates a rendurer from the window created earlier
 	renderer = SDL_CreateRenderer(Window_Display, -1, 0);
 
 	//displayes the map with the changes
-	DisplayTiles(renderer, myMap);
+	DisplayTiles(myMap);
 }
 
 
@@ -179,6 +211,7 @@ void GameApp::OnCleanup() {
 	/*SDL_DestroyTexture(texture);
 	SDL_FreeSurface(image);
 	SDL_DestroyRenderer(renderer);*/
+
 	SDL_DestroyWindow(Window_Display);
 	SDL_Quit();
 }

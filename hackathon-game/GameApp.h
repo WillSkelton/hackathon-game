@@ -17,11 +17,13 @@ public:
 	//determines events (such as key presses) and their associated changes (move left etc)
 	void OnEvent(SDL_Event* Event, Map * map);
 
+	//load_media
+	void load_images(Map *map);
+
 	//displays every tile when provided a given map
+	void DisplayTiles(Map &map);
 
-	void DisplayTiles(SDL_Renderer * renderer, Map &map);
-
-	void RenderPlayerLocation(SDL_Renderer * renderer, Map &map);
+	void RenderPlayerLocation(Map &map);
 
 	//renders game images every frame
 	void OnRender(Map &myMap);
@@ -35,8 +37,12 @@ private:
 	//display which is used for screen (think of this as the canvas)
 	SDL_Window* Window_Display;
 
-	//
+	//creates renderer object for the generated map
+	SDL_Renderer * renderer;
 
-	//SDL_Renderer * renderer;
+	//surfaces for individual image and master image for frame
+	SDL_Surface * temp_surface;
+	//SDL_Surface * map_surface;
+	SDL_Surface * master_surface;
 };
 

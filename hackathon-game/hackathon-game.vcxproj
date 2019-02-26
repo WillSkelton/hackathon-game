@@ -75,7 +75,8 @@
     <IncludePath>C:\Users\Willi\projects\hackathon-game\SDL2-2.0.9\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\Bryce\Desktop\hackathon-game\SDL2-2.0.9\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Bryce\Desktop\hackathon-game\SDL2_image-devel-2.0.4-VC\SDL2_image-2.0.4\include;C:\Users\Bryce\Desktop\hackathon-game\SDL2-2.0.9\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Bryce\Desktop\hackathon-game\SDL2_image-devel-2.0.4-VC\SDL2_image-2.0.4\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -96,8 +97,8 @@
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Users\Bryce\Desktop\hackathon-game\SDL2-2.0.9\lib\x64;C:\Users\Bryce\Desktop\hackathon-game\SDL2-2.0.9\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Bryce\Desktop\hackathon-game\SDL2-2.0.9\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -131,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FullGame.cpp" />
     <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="inputs.cpp" />
     <ClCompile Include="main.cpp" />
@@ -140,12 +142,16 @@
     <ClCompile Include="Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FullGame.h" />
     <ClInclude Include="GameApp.h" />
     <ClInclude Include="Header.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapElement.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Sprite.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="error_log.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

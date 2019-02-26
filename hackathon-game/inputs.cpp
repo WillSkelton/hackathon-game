@@ -1,6 +1,7 @@
 #include "GameApp.h"
 #include "Player.h"
 #include "Map.h"
+#include "FullGame.h"
 
 //determines events (such as key presses) and their associated changes (move left etc)
 void GameApp::OnEvent(SDL_Event* Event, Map * map) {
@@ -35,3 +36,4 @@ void GameApp::OnEvent(SDL_Event* Event, Map * map) {
 
 	}
 }
+

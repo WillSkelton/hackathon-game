@@ -1,6 +1,9 @@
 #pragma once
 
 #include <SDL.h>
+#include <SDL_image.h>
+#include <iostream>
+#include <fstream>
 
 #define MAP_WIDTH 40
 #define MAP_HEIGHT 40
