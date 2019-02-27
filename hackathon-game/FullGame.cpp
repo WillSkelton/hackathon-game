@@ -27,6 +27,8 @@ FullGame::~FullGame() {
 
 //controls game flow
 void FullGame::play_game() {
+	bool moved = false;
+	int frame = 0;
 
 	/*initialize values (only need window here)
 
@@ -46,17 +48,36 @@ void FullGame::play_game() {
 	//test function that proves we are capable of loading .png files
 	init_png_loading();
 
+	//render_map()
+
 	//control game flow -- keep playing until exited out
 	while (running) {
+		
 
 		//update the screen here******
-		render_and_display(myMap);
+		render_map(myMap);
+
+		//render_all_and_display(myMap);
+
+		render_player(myMap);
+		//present_renderer()
+
+		//update screen with rendered image
+		SDL_RenderPresent(renderer);
 
 		//SDL_PollEvent takes the most recent event (button press) and stores it to the event variable
 		while (SDL_PollEvent(&event) != 0) {
 
 			//process any given event
 			process_event(&event, &myMap);
+
+			//if input given for movement, then re-render 
+		}
+
+		//update frame, ***if frame gets above 4, then reset it??
+		++frame;
+		if (frame >= WALKING_ANIMATION_FRAMES) {
+			frame = 0;
 		}
 	}
 	close();
@@ -98,7 +119,56 @@ void FullGame::close() {
 
 }
 
-void FullGame::render_and_display(Map &myMap) {
+
+//generates a map and player renderer and displays to screen
+void FullGame::render_all_and_display(Map &myMap) {
+	//render map
+	render_map(myMap);
+
+	//render player
+	render_player(myMap);
+
+	//update screen with rendered image
+	SDL_RenderPresent(renderer);
+}
+
+void FullGame::render_player_motion_in_place(int frame, Map &myMap) {
+	//create destination/source rect objects
+
+
+	//switch statement determines what values to assign to source_rect
+	//(what frame we are on affects what animation stage to choose)
+
+	//make dest_rect based on player location in map object
+
+	//update renderer
+
+	//destroy any textures/surfaces used in this function
+}
+
+//renders the player's screen facing default sprite at the player's current location
+void FullGame::render_player(Map &myMap) {
+	SDL_Rect dest_rect = { (myMap.player.coordinates[0]) * DISPLAY_TILE_SIZE, (myMap.player.coordinates[1]) * DISPLAY_TILE_SIZE,
+		DISPLAY_TILE_SIZE, DISPLAY_TILE_SIZE };
+	SDL_Rect source_rect = { SOURCE_TILE_SIZE * 24, 0, SOURCE_TILE_SIZE, SOURCE_TILE_SIZE };
+
+	//create a surface for player icon
+	temp_surface = load_surface("assets\\tile_map\\Tilemap\\tilemap_packed.png");
+
+	//create a texture for player surface
+	temp_texture = SDL_CreateTextureFromSurface(renderer, temp_surface);
+
+	//destroy surface
+	SDL_FreeSurface(temp_surface);
+
+	//apply texture to renderer
+	SDL_RenderCopy(renderer, temp_texture, &source_rect, &dest_rect);
+
+	//destroy texture
+	SDL_DestroyTexture(temp_texture);
+}
+
+void FullGame::render_map(Map &myMap) {
 	SDL_Rect dest_rect = {0, 0, DISPLAY_TILE_SIZE, DISPLAY_TILE_SIZE };
 	SDL_Rect source_rect = { SOURCE_TILE_SIZE , SOURCE_TILE_SIZE , SOURCE_TILE_SIZE , SOURCE_TILE_SIZE };
 
@@ -122,12 +192,6 @@ void FullGame::render_and_display(Map &myMap) {
 		dest_rect.x = 0;
 	}
 
-
-
-	//render player image transparently over map
-
-	//update screen with rendered image
-	SDL_RenderPresent(renderer);
 }
 
 //determine which texture to apply via switch statement and adjust source_rect accordingly
@@ -238,8 +302,8 @@ bool FullGame::create_window() {
 
 //generate a renderer object for the window, returns success bool
 bool FullGame::create_renderer() {
-	//create renderer object
-	renderer = SDL_CreateRenderer(window_display, -1, SDL_RENDERER_ACCELERATED);
+	//create renderer object using VSync
+	renderer = SDL_CreateRenderer(window_display, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
 	//make the default renderer color black
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);

@@ -33,8 +33,16 @@ public:
 	//creates a texture from a provided surface + applies that texture to the renderer, frees up the surface/texture
 	void apply_texture_to_renderer(SDL_Rect &dest_rect, SDL_Rect &source_rect, const std::string path);
 
+	//allows us to generate a map and player initial starting point
+	void FullGame::render_all_and_display(Map &myMap);
+
+	void FullGame::render_player_motion_in_place(int frame, Map &myMap);
+
+	//renders the player's screen facing default sprite at the player's current location
+	void FullGame::render_player(Map &myMap);
+
 	//takes the renderer, applies it to the screen (this function updates screen with image generated from map parameter)
-	void render_and_display(Map &myMap);
+	void render_map(Map &myMap);
 
 	//determine which texture to apply via switch statement and adjust source_rect accordingly
 	void determine_source_tile(int x, int y, Map &map, SDL_Rect &source_rect);

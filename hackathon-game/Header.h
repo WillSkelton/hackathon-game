@@ -5,14 +5,13 @@
 #include <iostream>
 #include <fstream>
 
-#define MAP_WIDTH 40
-#define MAP_HEIGHT 40
-
 #define SOURCE_TILE_SIZE 16
 #define DISPLAY_TILE_SIZE 50
 
 #define WWIDTH 500
 #define WHEIGHT 500
+
+#define WALKING_ANIMATION_FRAMES 4
 
 typedef enum Identifier
 {
